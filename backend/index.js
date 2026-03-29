@@ -17,7 +17,9 @@ app.get("/test", (req, res) => {
 });
 
 /* ================= DB ================= */
-mongoose.connect("mongodb+srv://bestfrand21:Jr9cbaD1r7JzxKw7@cluster0.6jygwts.mongodb.net/e-commerce")
+require("dotenv").config();
+
+mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log("DB Error:", err));
 
