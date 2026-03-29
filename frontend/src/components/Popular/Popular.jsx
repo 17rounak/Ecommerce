@@ -8,33 +8,34 @@ const Popular = () => {
   const [popularProducts, setPopularProducts] = useState([]);
 
   useEffect(() => {
-  fetch("https://ecommerce-production-4fee.up.railway.app/popularinwomen")
-    .then((response) => response.json())
-    .then((data) => {
+    fetch("https://ecommerce-production-4fee.up.railway.app/popularinwomen")
+      .then((response) => response.json())
+      .then((data) => {
 
-      const backendData = data?.products || data || [];
+        const backendData = data?.products || data || [];
 
-      // 🔥 FILTER STATIC WOMEN PRODUCTS
-      const staticWomen = data_product.filter(
-        (item) => item.category?.toLowerCase() === "women"
-      );
+        // ✅ FILTER STATIC WOMEN PRODUCTS
+        const staticWomen = data_product.filter(
+          (item) => item.category?.toLowerCase() === "women"
+        );
 
-      // 🔥 MERGE BOTH
-      const combined = [...staticWomen, ...backendData];
+        // ✅ MERGE STATIC + BACKEND
+        const combined = [...staticWomen, ...backendData];
 
-      setPopularProducts(combined);
-    })
-    .catch((err) => {
-      console.log("Backend error, using static:", err);
+        setPopularProducts(combined);
+      })
+      .catch((err) => {
+        console.log("Backend error, using static:", err);
 
-      // fallback
-      const staticWomen = data_product.filter(
-        (item) => item.category?.toLowerCase() === "women"
-      );
+        // fallback
+        const staticWomen = data_product.filter(
+          (item) => item.category?.toLowerCase() === "women"
+        );
 
-      setPopularProducts(staticWomen);
-    });
-}, []);
+        setPopularProducts(staticWomen);
+      });
+  }, []);
+
   return (
     <div className='popular'>
       <h1>POPULAR IN WOMEN</h1>
@@ -46,7 +47,14 @@ const Popular = () => {
             key={item.id || i}
             id={item.id}
             name={item.name}
-            image={item.image}
+
+            // 🔥 FIX IMAGE HERE
+            image={
+              item.image?.startsWith("http")
+                ? item.image
+                : `https://ecommerce-production-4fee.up.railway.app/${item.image}`
+            }
+
             new_price={item.new_price}
             old_price={item.old_price}
           />
