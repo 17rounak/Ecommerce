@@ -41,7 +41,7 @@ const AddProduct = () => {
     let formData = new FormData();
     formData.append("product", image);
 
-    const uploadRes = await fetch("http://localhost:4000/upload", {
+    const uploadRes = await fetch("https://ecommerce-production-4fee.up.railway.app/upload", {
       method: "POST",
       body: formData,
     });
@@ -58,7 +58,7 @@ const AddProduct = () => {
       image: uploadData.image_url,
     };
 
-    const res = await fetch("http://localhost:4000/addproduct", {
+    const res = await fetch("https://ecommerce-production-4fee.up.railway.app/addproduct", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

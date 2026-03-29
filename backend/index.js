@@ -263,7 +263,10 @@ app.get("/newcollections", async (req, res) => {
 });
 
 app.get("/popularinwomen", async (req, res) => {
-  let products = await Product.find({ category: "women" });
+  let products = await Product.find({
+    category: { $regex: "women", $options: "i" }
+  });
+
   res.json(products.slice(0, 4));
 });
 
