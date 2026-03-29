@@ -1,4 +1,4 @@
-require("dotenv").config(); // ✅ MUST be first
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
@@ -14,7 +14,7 @@ const jwt = require("jsonwebtoken");
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
-/* ================= TEST ROUTE ================= */
+/* ================= TEST ================= */
 app.get("/test", (req, res) => {
   res.send("Working");
 });
@@ -46,18 +46,18 @@ app.use("/images", express.static("upload/images"));
 app.post("/upload", upload.single("product"), (req, res) => {
   if (!req.file) {
     return res.status(400).json({
-      success: 0,
+      success: false,
       message: "No file uploaded",
     });
   }
 
   res.json({
-    success: 1,
-    image_url: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`, // ✅ FIXED
+    success: true,
+    image_url: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
   });
 });
 
-/* ================= MODEL ================= */
+/* ================= PRODUCT MODEL ================= */
 const productSchema = new mongoose.Schema({
   id: Number,
   name: String,
@@ -83,7 +83,10 @@ app.post("/addproduct", async (req, res) => {
 
     res.json({ success: true, product });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Error saving product" });
+    res.status(500).json({
+      success: false,
+      message: "Error saving product",
+    });
   }
 });
 
@@ -93,12 +96,18 @@ app.post("/removeproduct", async (req, res) => {
     const deletedProduct = await Product.findOneAndDelete({ id: req.body.id });
 
     if (!deletedProduct) {
-      return res.json({ success: false, message: "Product not found" });
+      return res.json({
+        success: false,
+        message: "Product not found",
+      });
     }
 
     res.json({ success: true, deletedProduct });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Error deleting product" });
+    res.status(500).json({
+      success: false,
+      message: "Error deleting product",
+    });
   }
 });
 
@@ -125,7 +134,13 @@ const Users = mongoose.model("Users", {
 app.post("/signup", async (req, res) => {
   try {
     let check = await Users.findOne({ email: req.body.email });
-    if (check) return res.status(400).json({ success: false });
+
+    if (check) {
+      return res.status(400).json({
+        success: false,
+        message: "Email already exists",
+      });
+    }
 
     let cart = {};
     for (let i = 0; i < 300; i++) cart[i] = 0;
@@ -142,8 +157,12 @@ app.post("/signup", async (req, res) => {
     const token = jwt.sign({ user: { id: user.id } }, "secret_ecom");
 
     res.json({ success: true, token });
-  } catch {
-    res.status(500).json({ success: false });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
   }
 });
 
@@ -152,16 +171,28 @@ app.post("/login", async (req, res) => {
   try {
     let user = await Users.findOne({ email: req.body.email });
 
-    if (!user) return res.json({ success: false });
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "User not found",
+      });
+    }
 
-    if (req.body.password !== user.password)
-      return res.json({ success: false });
+    if (req.body.password !== user.password) {
+      return res.json({
+        success: false,
+        message: "Invalid password",
+      });
+    }
 
     const token = jwt.sign({ user: { id: user.id } }, "secret_ecom");
 
     res.json({ success: true, token });
-  } catch {
-    res.status(500).json({ success: false });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
   }
 });
 
@@ -183,16 +214,25 @@ const fetchUser = async (req, res, next) => {
 app.post("/addtocart", fetchUser, async (req, res) => {
   let user = await Users.findOne({ _id: req.user.id });
   user.cartData[req.body.itemId] += 1;
-  await Users.findByIdAndUpdate(req.user.id, { cartData: user.cartData });
+
+  await Users.findByIdAndUpdate(req.user.id, {
+    cartData: user.cartData,
+  });
+
   res.json({ success: true });
 });
 
 app.post("/removefromcart", fetchUser, async (req, res) => {
   let user = await Users.findOne({ _id: req.user.id });
-  if (user.cartData[req.body.itemId] > 0)
-    user.cartData[req.body.itemId] -= 1;
 
-  await Users.findByIdAndUpdate(req.user.id, { cartData: user.cartData });
+  if (user.cartData[req.body.itemId] > 0) {
+    user.cartData[req.body.itemId] -= 1;
+  }
+
+  await Users.findByIdAndUpdate(req.user.id, {
+    cartData: user.cartData,
+  });
+
   res.json({ success: true });
 });
 
