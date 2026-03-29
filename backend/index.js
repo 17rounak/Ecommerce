@@ -20,10 +20,11 @@ app.get("/test", (req, res) => {
 });
 
 /* ================= DB ================= */
-console.log("MONGO_URI:", process.env.MONGO_URI);
+console.log("ENV CHECK:", process.env.MONGO_URI);
+
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log("DB Error:", err));
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.log("❌ DB ERROR:", err));
 
 /* ================= ROOT ================= */
 app.get("/", (req, res) => {
