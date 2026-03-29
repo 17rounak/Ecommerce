@@ -53,9 +53,12 @@ app.post("/upload", upload.single("product"), (req, res) => {
     });
   }
 
+  // 🔥 IMPORTANT: Use Railway public URL
+  const BASE_URL = "https://ecommerce-production-4fee.up.railway.app";
+
   res.json({
     success: true,
-    image_url: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+    image_url: `${BASE_URL}/images/${req.file.filename}`,
   });
 });
 
