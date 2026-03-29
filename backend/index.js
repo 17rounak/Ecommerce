@@ -133,10 +133,19 @@ const Users = mongoose.model("Users", {
 /* ================= SIGNUP ================= */
 app.post("/signup", async (req, res) => {
   try {
-    let check = await Users.findOne({ email: req.body.email });
+    const { username, email, password } = req.body;
 
-    if (check) {
-      return res.status(400).json({
+    if (!username || !email || !password) {
+      return res.json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+
+    let existingUser = await Users.findOne({ email });
+
+    if (existingUser) {
+      return res.json({
         success: false,
         message: "Email already exists",
       });
@@ -146,9 +155,9 @@ app.post("/signup", async (req, res) => {
     for (let i = 0; i < 300; i++) cart[i] = 0;
 
     const user = new Users({
-      name: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
+      name: username,
+      email,
+      password,
       cartData: cart,
     });
 
@@ -157,9 +166,10 @@ app.post("/signup", async (req, res) => {
     const token = jwt.sign({ user: { id: user.id } }, "secret_ecom");
 
     res.json({ success: true, token });
+
   } catch (error) {
-    console.log(error);
-    res.status(500).json({
+    console.log("SIGNUP ERROR:", error);
+    res.json({
       success: false,
       message: "Server error",
     });
