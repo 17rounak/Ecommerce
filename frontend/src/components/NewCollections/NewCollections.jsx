@@ -8,7 +8,7 @@ const NewCollections = () => {
   const [new_collection, setNew_collection] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:4000/allproducts")
+    fetch("http://ecommerce-production-4fee.up.railway.app/allproducts")
       .then((res) => res.json())
       .then((data) => {
 

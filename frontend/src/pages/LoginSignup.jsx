@@ -27,7 +27,7 @@ const LoginSignup = () => {
 
     let responseData;
 
-    await fetch('http://localhost:4000/login', {
+    await fetch('http://ecommerce-production-4fee.up.railway.app/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +61,7 @@ const LoginSignup = () => {
 
     let responseData;
 
-    await fetch('http://localhost:4000/signup', {
+    await fetch('http://ecommerce-production-4fee.up.railway.app/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

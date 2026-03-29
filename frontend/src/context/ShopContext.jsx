@@ -22,7 +22,7 @@ const ShopContextProvider = (props) => {
 
   // ✅ FETCH PRODUCTS (FIXED — NO CART OVERWRITE)
   useEffect(() => {
-    fetch("http://localhost:4000/allproducts")
+    fetch("http://ecommerce-production-4fee.up.railway.app/allproducts")
       .then((res) => res.json())
       .then((data) => {
 
@@ -65,7 +65,7 @@ const ShopContextProvider = (props) => {
 
   // 🔥 FETCH CART (USED AFTER LOGIN)
   const fetchCart = (userToken) => {
-    fetch("http://localhost:4000/getcart", {
+    fetch("http://ecommerce-production-4fee.up.railway.app/getcart", {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -102,7 +102,7 @@ const ShopContextProvider = (props) => {
     }));
 
     if (token) {
-      fetch("http://localhost:4000/addtocart", {
+      fetch("http://ecommerce-production-4fee.up.railway.app/addtocart", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -123,7 +123,7 @@ const ShopContextProvider = (props) => {
     }));
 
     if (token) {
-      fetch("http://localhost:4000/removefromcart", {
+      fetch("http://ecommerce-production-4fee.up.railway.app/removefromcart", {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
