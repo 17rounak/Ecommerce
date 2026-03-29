@@ -1,0 +1,108 @@
+/* ================= POPULAR SECTION FULL RESPONSIVE ================= */
+
+.popular{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    width: 85%;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0;
+
+    height: auto;
+}
+
+/* heading */
+.popular h1{
+    font-size: 36px;
+    font-weight: 600;
+    color: #171717;
+}
+
+/* underline */
+.popular hr{
+    width: 120px;
+    height: 3px;
+    background: #252525;
+    border: none;
+}
+
+/* items */
+.popular-item{
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+/* ================= 1280 ================= */
+@media(max-width:1280px){
+    .popular{
+        width: 90%;
+        margin: 50px auto;
+    }
+
+    .popular h1{
+        font-size: 32px;
+    }
+
+    .popular-item{
+        gap: 25px;
+    }
+}
+
+/* ================= 1024 ================= */
+@media(max-width:1024px){
+    .popular{
+        width: 92%;
+        margin: 45px auto;
+    }
+
+    .popular h1{
+        font-size: 28px;
+    }
+
+    .popular-item{
+        gap: 20px;
+    }
+}
+
+/* ================= 800 ================= */
+@media(max-width:800px){
+    .popular{
+        width: 95%;
+        margin: 40px auto;
+    }
+
+    .popular h1{
+        font-size: 26px;
+    }
+
+    .popular-item{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+}
+
+/* ================= 500 ================= */
+@media(max-width:500px){
+    .popular{
+        width: 95%;
+        margin: 30px auto;
+    }
+
+    .popular h1{
+        font-size: 22px;
+    }
+
+    .popular hr{
+        width: 80px;
+        height: 2px;
+    }
+
+    .popular-item{
+        gap: 15px;
+    }
+}

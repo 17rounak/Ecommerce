@@ -1,0 +1,112 @@
+/* ================= NEW COLLECTIONS ================= */
+
+.new-collections{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    width: 85%;
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0;
+
+    height: auto;
+}
+
+/* heading */
+.new-collections h1{
+    font-size: 36px;
+    font-weight: 600;
+    color: #171717;
+}
+
+/* underline */
+.new-collections hr{
+    width: 120px;
+    height: 3px;
+    background: #252525;
+    border: none;
+}
+
+/* ================= 🔥 FIXED GRID ================= */
+.collections{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 per row */
+    gap: 30px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* ================= 1280 ================= */
+@media(max-width:1280px){
+    .new-collections{
+        width: 90%;
+        margin: 50px auto;
+    }
+
+    .new-collections h1{
+        font-size: 32px;
+    }
+
+    .collections{
+        grid-template-columns: repeat(3, 1fr); /* 🔥 3 per row */
+        gap: 25px;
+    }
+}
+
+/* ================= 1024 ================= */
+@media(max-width:1024px){
+    .new-collections{
+        width: 92%;
+        margin: 45px auto;
+    }
+
+    .new-collections h1{
+        font-size: 28px;
+    }
+
+    .collections{
+        grid-template-columns: repeat(2, 1fr); /* 🔥 2 per row */
+        gap: 20px;
+    }
+}
+
+/* ================= 800 ================= */
+@media(max-width:800px){
+    .new-collections{
+        width: 95%;
+        margin: 40px auto;
+    }
+
+    .new-collections h1{
+        font-size: 26px;
+    }
+
+    .collections{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+/* ================= 500 ================= */
+@media(max-width:500px){
+    .new-collections{
+        width: 95%;
+        margin: 30px auto;
+    }
+
+    .new-collections h1{
+        font-size: 22px;
+    }
+
+    .new-collections hr{
+        width: 80px;
+        height: 2px;
+    }
+
+    .collections{
+        grid-template-columns: 1fr; /* 🔥 1 per row */
+        gap: 15px;
+    }
+}
