@@ -50,10 +50,10 @@ const Popular = () => {
 
             // 🔥 FIX IMAGE HERE
             image={
-              item.image?.startsWith("http")
-                ? item.image
-                : `https://ecommerce-production-4fee.up.railway.app/${item.image}`
-            }
+  item.image?.includes("http")
+    ? item.image
+    : `https://ecommerce-production-4fee.up.railway.app/${item.image}`
+}
 
             new_price={item.new_price}
             old_price={item.old_price}
