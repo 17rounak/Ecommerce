@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import './CSS/LoginSignup.css';
-import { ShopContext } from '../context/ShopContext'; // adjust path if needed
+import { ShopContext } from '../context/ShopContext';
 
 const LoginSignup = () => {
 
@@ -24,67 +24,74 @@ const LoginSignup = () => {
 
   // ✅ LOGIN
   const login = async () => {
+    try {
+      const res = await fetch('https://ecommerce-production-4fee.up.railway.app/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-    let responseData;
+      const data = await res.json();
 
-    await fetch('https://ecommerce-production-4fee.up.railway.app/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => responseData = data);
+      if (data.success) {
+        localStorage.setItem('auth-token', data.token);
 
-    if (responseData.success) {
+        updateToken();
+        fetchCart(data.token);
 
-      // 🔥 SAVE TOKEN
-      localStorage.setItem('auth-token', responseData.token);
+        setTimeout(() => {
+          window.location.replace("/");
+        }, 300);
 
-      // 🔥 FIX: UPDATE CONTEXT + FETCH CART
-      updateToken();
-      fetchCart(responseData.token);
+      } else {
+        alert(data.message || "Invalid email or password");
+      }
 
-      // 🔥 DELAY NAVIGATION (IMPORTANT)
-      setTimeout(() => {
-        window.location.replace("/");
-      }, 300);
-
-    } else {
-      alert(responseData.errors);
+    } catch (error) {
+      console.error(error);
+      alert("Server error. Please try again later.");
     }
   };
 
   // ✅ SIGNUP
   const signup = async () => {
+    try {
+      const res = await fetch('https://ecommerce-production-4fee.up.railway.app/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
 
-    let responseData;
+      const data = await res.json();
 
-    await fetch('https://ecommerce-production-4fee.up.railway.app/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((res) => res.json())
-      .then((data) => responseData = data);
+      if (data.success) {
+        localStorage.setItem('auth-token', data.token);
 
-    if (responseData.success) {
+        updateToken();
+        fetchCart(data.token);
 
-      localStorage.setItem('auth-token', responseData.token);
+        setTimeout(() => {
+          window.location.replace("/");
+        }, 300);
 
-      // 🔥 SAME FIX HERE
-      updateToken();
-      fetchCart(responseData.token);
+      } else {
+        alert(data.message || "Signup failed");
+      }
 
-      setTimeout(() => {
-        window.location.replace("/");
-      }, 300);
-
-    } else {
-      alert(responseData.errors);
+    } catch (error) {
+      console.error(error);
+      alert("Server error. Please try again later.");
     }
   };
 
