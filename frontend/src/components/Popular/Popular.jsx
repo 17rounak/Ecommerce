@@ -33,27 +33,30 @@ const Popular = () => {
       <hr />
 
       <div className='popular-item'>
-        {popularProducts.map((item, i) => {
+       {popularProducts.map((item, i) => {
 
-          // ✅ SIMPLE IMAGE FIX
-          let imageUrl = item.image;
+  let imageUrl = item.image;
 
-          // if backend gives only filename
-          if (typeof item.image === "string" && !item.image.startsWith("http") && !item.image.includes("/assets/")) {
-            imageUrl = `https://ecommerce-production-4fee.up.railway.app/images/${item.image}`;
-          }
+  // ✅ backend images only
+  if (
+    typeof item.image === "string" &&
+    !item.image.includes("/assets/") &&
+    !item.image.startsWith("http")
+  ) {
+    imageUrl = `https://ecommerce-production-4fee.up.railway.app/images/${item.image}`;
+  }
 
-          return (
-            <Item
-              key={item.id || i}
-              id={item.id}
-              name={item.name}
-              image={imageUrl}
-              new_price={item.new_price}
-              old_price={item.old_price}
-            />
-          );
-        })}
+  return (
+    <Item
+      key={item.id || i}
+      id={item.id}
+      name={item.name}
+      image={imageUrl}
+      new_price={item.new_price}
+      old_price={item.old_price}
+    />
+  );
+})}
       </div>
     </div>
   );
