@@ -50,10 +50,10 @@ const Popular = () => {
 
             // 🔥 FIX IMAGE HERE
             image={
-  typeof item.image === "string" && item.image.startsWith("http")
-    ? item.image
-    : typeof item.image === "string"
-    ? `https://ecommerce-production-4fee.up.railway.app/images/${item.image.split("/").pop()}`
+  typeof item.image === "string"
+    ? item.image.startsWith("http")
+      ? item.image
+      : `https://ecommerce-production-4fee.up.railway.app/images/${item.image.split("/").pop()}`
     : item.image
 }
 
