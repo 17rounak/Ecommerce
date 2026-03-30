@@ -7,34 +7,29 @@ const Popular = () => {
 
   const [popularProducts, setPopularProducts] = useState([]);
 
-  useEffect(() => {
-    fetch("https://ecommerce-production-4fee.up.railway.app/popularinwomen")
-      .then((response) => response.json())
-      .then((data) => {
+useEffect(() => {
+  fetch("https://ecommerce-production-4fee.up.railway.app/popularinwomen")
+    .then((response) => response.json())
+    .then((data) => {
 
-        const backendData = data?.products || data || [];
+      const backendData = data?.products || data || [];
 
-        // ✅ FILTER STATIC WOMEN PRODUCTS
-        const staticWomen = data_product.filter(
-          (item) => item.category?.toLowerCase() === "women"
-        );
+      // ✅ FIX HERE
+      const staticWomen = data_product;
 
-        // ✅ MERGE STATIC + BACKEND
-        const combined = [...staticWomen, ...backendData];
+      const combined = [...staticWomen, ...backendData];
 
-        setPopularProducts(combined);
-      })
-      .catch((err) => {
-        console.log("Backend error, using static:", err);
+      setPopularProducts(combined);
+    })
+    .catch((err) => {
+      console.log("Backend error, using static:", err);
 
-        // fallback
-        const staticWomen = data_product.filter(
-          (item) => item.category?.toLowerCase() === "women"
-        );
+      // fallback
+      const staticWomen = data_product;
 
-        setPopularProducts(staticWomen);
-      });
-  }, []);
+      setPopularProducts(staticWomen);
+    });
+}, []);
 
   return (
     <div className='popular'>
