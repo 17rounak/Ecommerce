@@ -7,29 +7,25 @@ const Popular = () => {
 
   const [popularProducts, setPopularProducts] = useState([]);
 
-useEffect(() => {
-  fetch("https://ecommerce-production-4fee.up.railway.app/popularinwomen")
-    .then((response) => response.json())
-    .then((data) => {
+  useEffect(() => {
+    fetch("https://ecommerce-production-4fee.up.railway.app/popularinwomen")
+      .then((response) => response.json())
+      .then((data) => {
 
-      const backendData = data?.products || data || [];
+        const backendData = data?.products || data || [];
 
-      // ✅ FIX HERE
-      const staticWomen = data_product;
+        // ✅ combine static + backend
+        const combined = [...data_product, ...backendData];
 
-      const combined = [...staticWomen, ...backendData];
+        setPopularProducts(combined);
+      })
+      .catch((err) => {
+        console.log("Backend error, using static:", err);
 
-      setPopularProducts(combined);
-    })
-    .catch((err) => {
-      console.log("Backend error, using static:", err);
-
-      // fallback
-      const staticWomen = data_product;
-
-      setPopularProducts(staticWomen);
-    });
-}, []);
+        // fallback → only static
+        setPopularProducts(data_product);
+      });
+  }, []);
 
   return (
     <div className='popular'>
@@ -37,29 +33,27 @@ useEffect(() => {
       <hr />
 
       <div className='popular-item'>
-        {popularProducts.map((item, i) => (
-          <Item
-            key={item.id || i}
-            id={item.id}
-            name={item.name}
+        {popularProducts.map((item, i) => {
 
-            // 🔥 FIX IMAGE HERE
-            image={
-  !item.image
-    ? ""
-    : typeof item.image === "string"
-    ? item.image.startsWith("http")
-      ? item.image
-      : item.image.includes("/images/")
-      ? `https://ecommerce-production-4fee.up.railway.app${item.image}`
-      : `https://ecommerce-production-4fee.up.railway.app/images/${item.image.split("/").pop()}`
-    : item.image
-}
+          // ✅ SIMPLE IMAGE FIX
+          let imageUrl = item.image;
 
-            new_price={item.new_price}
-            old_price={item.old_price}
-          />
-        ))}
+          // if backend gives only filename
+          if (typeof item.image === "string" && !item.image.startsWith("http") && !item.image.includes("/assets/")) {
+            imageUrl = `https://ecommerce-production-4fee.up.railway.app/images/${item.image}`;
+          }
+
+          return (
+            <Item
+              key={item.id || i}
+              id={item.id}
+              name={item.name}
+              image={imageUrl}
+              new_price={item.new_price}
+              old_price={item.old_price}
+            />
+          );
+        })}
       </div>
     </div>
   );
