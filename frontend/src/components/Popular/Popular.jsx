@@ -14,7 +14,7 @@ const Popular = () => {
 
         const backendData = data?.products || data || [];
 
-        // ✅ combine static + backend
+        // ✅ combine static + backend (no image logic here)
         const combined = [...data_product, ...backendData];
 
         setPopularProducts(combined);
@@ -33,30 +33,16 @@ const Popular = () => {
       <hr />
 
       <div className='popular-item'>
-       {popularProducts.map((item, i) => {
-
-  let imageUrl = item.image;
-
-  // ✅ backend images only
-  if (
-    typeof item.image === "string" &&
-    !item.image.includes("/assets/") &&
-    !item.image.startsWith("http")
-  ) {
-    imageUrl = `https://ecommerce-production-4fee.up.railway.app/images/${item.image}`;
-  }
-
-  return (
-    <Item
-      key={item.id || i}
-      id={item.id}
-      name={item.name}
-      image={imageUrl}
-      new_price={item.new_price}
-      old_price={item.old_price}
-    />
-  );
-})}
+        {popularProducts.map((item, i) => (
+          <Item
+            key={item.id || i}
+            id={item.id}
+            name={item.name}
+            image={item.image}   // ✅ DO NOT TOUCH IMAGE HERE
+            new_price={item.new_price}
+            old_price={item.old_price}
+          />
+        ))}
       </div>
     </div>
   );
