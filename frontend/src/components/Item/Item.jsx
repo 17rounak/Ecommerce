@@ -6,9 +6,13 @@ const Item = (props) =>{
     return(
         <div className='item'>
             <Link to={`/product/${props.id}`}>
-                <img 
-  onClick={() => window.scrollTo(0,0)} 
-  src={typeof props.image === "object" ? props.image.default : props.image} 
+                <img
+  onClick={() => window.scrollTo(0, 0)}
+  src={
+    props.image?.default
+      ? props.image.default   // static import fix
+      : props.image           // backend/string
+  }
   alt=""
 />
             </Link>
