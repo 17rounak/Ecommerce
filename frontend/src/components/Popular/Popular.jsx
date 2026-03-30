@@ -45,9 +45,13 @@ useEffect(() => {
 
             // 🔥 FIX IMAGE HERE
             image={
-  typeof item.image === "string"
+  !item.image
+    ? ""
+    : typeof item.image === "string"
     ? item.image.startsWith("http")
       ? item.image
+      : item.image.includes("/images/")
+      ? `https://ecommerce-production-4fee.up.railway.app${item.image}`
       : `https://ecommerce-production-4fee.up.railway.app/images/${item.image.split("/").pop()}`
     : item.image
 }
