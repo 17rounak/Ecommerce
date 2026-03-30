@@ -1,19 +1,19 @@
-# 🛒 Ecommerce Web Application
+#  Ecommerce Web Application
 
 A full-stack **Ecommerce platform** built using the MERN stack.
 This application allows users to browse products, while admins can manage products through a dedicated dashboard.
 
 ---
 
-## 🚀 Features
+##  Features
 
-### 👤 User Features
+###  User Features
 
 * Browse products
 * View product details
 * Responsive UI
 
-### 🛠️ Admin Features
+###  Admin Features
 
 * Add new products
 * Remove products
@@ -21,7 +21,7 @@ This application allows users to browse products, while admins can manage produc
 
 ---
 
-## 🧱 Tech Stack
+##  Tech Stack
 
 ### Frontend
 
@@ -39,7 +39,7 @@ This application allows users to browse products, while admins can manage produc
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 Ecommerce/
@@ -51,9 +51,9 @@ Ecommerce/
 
 ---
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
-### 1️⃣ Clone the repository
+### 1️. Clone the repository
 
 ```bash
 git clone https://github.com/17rounak/Ecommerce.git
@@ -62,7 +62,7 @@ cd Ecommerce
 
 ---
 
-### 2️⃣ Backend Setup
+### 2️. Backend Setup
 
 ```bash
 cd backend
@@ -72,7 +72,7 @@ npm start
 
 ---
 
-### 3️⃣ Frontend Setup
+### 3️. Frontend Setup
 
 ```bash
 cd frontend
@@ -82,7 +82,7 @@ npm start
 
 ---
 
-### 4️⃣ Admin Panel Setup
+### 4️. Admin Panel Setup
 
 ```bash
 cd admin
@@ -92,7 +92,7 @@ npm start
 
 ---
 
-## 🌐 Environment Variables
+##  Environment Variables
 
 Create a `.env` file in the backend folder:
 
@@ -103,7 +103,7 @@ PORT=4000
 
 ---
 
-## 🔗 API Endpoints (Sample)
+##  API Endpoints (Sample)
 
 * `POST /addproduct` → Add a new product
 * `POST /removeproduct` → Remove a product
@@ -111,7 +111,7 @@ PORT=4000
 
 ---
 
-## 📸 Future Improvements
+##  Future Improvements
 
 * User authentication (JWT)
 * Payment integration (Stripe)
@@ -120,7 +120,7 @@ PORT=4000
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are welcome!
 Feel free to fork the repo and submit a pull request.
@@ -128,6 +128,6 @@ Feel free to fork the repo and submit a pull request.
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 **Rounak Handa**
